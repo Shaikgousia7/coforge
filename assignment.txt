@@ -1,4 +1,4 @@
-DAY-1
+DAY-1*****
 1.find the sum of 2 numbers give the input from command line arguments using eclips
 2.write a  program to check entered number is armsrtong or not
 3.write a program to creat a jagged array
