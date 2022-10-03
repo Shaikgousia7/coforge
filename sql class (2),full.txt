@@ -1,0 +1,200 @@
+create table emp1(id int(3) primary key, name varchar(10), des varchar(10));
+create table dept1(dno int(3) primary key, dname varchar(10), eid int (3), foreign key (eid) references emp(id) on update cascase/on delete cascase);
+DML Commands:
+insert into dept1 values(11,'It', 1);
+insert into emp1 values(1,'jhon','engi');
+update emp set id=2 where name='john';
+update emp set id=2 city ='hyd' where name='john';
+delete from emp where id=1;
+
+Alter commands:
+alter table emp add salary decimal(10,4);
+alter table emp delete column_name;
+alter table emp modify name char(15);--------(used to change datatype of column)
+alter table emp change column name firstname char(15);-----(used to change column name)
+alter table emp add primary key(id);
+alter table emp drop primary key;
+
+
+rename table table_name to table_name1;----(renaming the table name)
+
+truncate table table_name;-----(delete all the rows in table but leaves the table structure)
+
+
+Operators: 
+
+Arithmatic: +,-,*,/,%
+Relational: =,<>,>=,<=
+Logical: AND, OR, NOT
+comparison: between ,and, like ,is null,in ,any all,exist, not exist 
+
+
+
+
+example:
+create table emp1(id int(3) ,name varchar(10), dob date, dname varchar(10),des varchar(10), salary decimal(10,4), city varchar(10));
+insert into emp1 values (1,'ajay','2000-10-25','IT','engg',40000,'pune'),(2,'vijay','2000-05-20','IT','engg',43000,'goa'),
+(3,'harsha','2000-05-10','IT','dev',30000,'pune'),(4,'asha','1999-04-20','sales','dev',30000,'chennai'),
+(5,'geetha','1999-03-23','sales','test',30000,'goa'),(6,'sunil','1999-03-20','hr','test',30000,'chennai'),(7,'raj','1999-02-20','hr','test',42000,'pune'),
+(8,'raju','2001-02-20','hr','engg',30000,'pune'),(9,'rajeev','2001-03-20','sales','engg',30000,'goa');
+
+select name,city from emp1 where city='goa';
+select name,salary/79 salindollars from emp1;
+select name,salary from emp1 where salary between 'harsha' and 'sunil';....(it will give the values betwwen values)
+select name,city from emp1 where city='goa' and city='chennai';
+select name,city from emp1 where city in('goa' ,'hyd');
+select name,city from emp1 where not in city('goa');
+select name,salary,city,des from emp1 where des='test' and city='chennai' and salary>25000;
+select name,dname,des from emp1 where des not in ('engg') and dname='IT';
+select name from emp1 where name like '%a';----(gives the names which are ending with a)
+select name from emp1 where name like '_a%';-----(gives the names which are having alphabit a in the second position from starting)
+selec name from emp1 where name like '%j%';-----(gives the names which have alphabet j in there name)
+
+
+
+
+
+order by clause:
+select * from emp1 order by name asc, des desc;
+select * from (emp1) order by des desc;
+distinct clause:
+select distinct name from emp1;
+select distinct name,des from emp1;
+group by clause:
+select max(salary),des from (emp1) group by des;
+ select dname, avg(salary) from (emp1) group by dname;
+select  count (*) from (emp1) group by dname having count(*)>=3 order by des asc;
+select  avg(salary),des from (emp1) group by des having avg(salary)<=40000;
+
+
+Functions:
+
+i)built in functions: date(curdate,time,curtime,extract,now),math(mod,round,ceill,floor,truncate),
+string(Upper, Lower,instr,lpad,rpad,left,right,ltrim,substrascii,lenghth), flow of control(if,case),
+mislanoius(greatest,least,ifnull,nullif,coalesce-returns first non null expression)
+
+
+ii)aggregate functions:sum, avg, count min and max. 
+
+select count (*) from emp1 where salary>35000;
+select count(*) from emp1 where city='chennai and dname='IT';
+select max(salary) from emp1 where dname='IT';
+
+create table emp2 as select* from emp1;----(duplicate table creation)
+
+Set operators:
+Union
+select name,dname from emp1 union  select name ,dname from emp2;---(combines results of 2 tables by removing duplicates)
+Union all
+select name,dname from emp1 union all select name ,dname from emp2;---(combines results of 2 tables by with out removing duplicates)
+
+
+flow controll:
+ifnull(): accepts two arguments and returns the first argument if it is not NULL. Otherwise, the IFNULL function returns the second argument.
+nullif():that takes two expressions as arguments and returns NULL if the two expressions are equal. otherwise returns 1st expression.
+
+
+Joins:
+inner joiner
+retruns the common rows of both tables using join & on keyword
+select p.id,p.name,s.id,s.orderno,s.quantity from product p inner join sales s on p.id=s.id;
+select p.id,p.name,s.id,s.orderno,s.quantity from product p  sales s where p.id=s.id;
+select p.id,p.name,s.id,s.orderno,s.quantity from product p inner join sales s using (id);
+
+
+equi
+same as inner join only returns common rows of both tables uses where keyword instead of join & on keyword.
+select p.id,p.name,s.id,s.orderno,s.quantity from product p  sales s where p.id=s.id;
+
+
+left
+The LEFT JOIN includes all records from the left side and matched rows from the right table,
+select p.id,p.name,s.id,s.orderno,s.quantity from product p left join sales s on p.id=s.id;
+
+
+right
+RIGHT JOIN returns all rows from the right side and unmatched rows from the left table
+select p.id,p.name,s.id,s.orderno,s.quantity from product p right join sales s on p.id=s.id;
+
+cross self
+generates cartesian product of join.
+select*from product,sales;
+
+self join
+A self join is a join in which a table is joined with itself.
+To join a table itself means that each row of the table is combined with itself and with every other row of the table. 
+The self join can be viewed as a join of two copies of the same table.
+select c1.name from customer c1,customer c2 where c1.city=c2.city and c2.name='raj';
+
+slect c1.name from customer c1, customer c2 where c1.des=c2.des and c2.name='wasim';
+
+
+
+SUB Query:
+when a query is written with in another query tn that query is called sub query.
+inthis first sub query is evaluated and sends o/p to outer query.
+so the final result is returned to the user.
+sub query must be writen within the peranthesis.
+it uses in all any > ,<, <>, <=, >=, =, exists ,not exsists operators.
+
+Syntax:
+
+select col1,col2 from tab1 where exp(select col1 from tab where condition);
+
+
+types of sub quries:
+
+single row:
+
+if u write sub query in = ,>= ,<= ,<,> <> they are single row sub query.
+select name from emp1 where salary>(select max(salary) from emp1 where des='test');
+
+
+multiple row:
+
+if u write sub query in using exists and not exists in all operators  they are multiple row sub query.
+select name,dname from emp1 where id in(select id from emp1 where dname='IT');
+select name,salary,dname from customer where salary> all(select salary from customer where dname='health');
+select name,salary,dname from customer where salary> any(select salary from customer where dname='health');
+select name,salary,dname from customer where salary in(select max(salary) from customer group by name);
+
+select name,salary,dname from emp1 where salary in (select max(salary) from  emp1 group by dname having max(salary)>30000)order by dname desc ;
+(order by clause can not be used in a sub query).
+
+inline view:
+select salary from(select salary from emp1 order by salary desc) emp1 limit 2,1;
+
+nested sub query:
+slect min(salary) from (salary* from(select*from emp1 order by salary desc)emp1 limit 2)emp1;
+
+co-related sub query:
+select name,salary,dname from emp1 outter1 where salary>(slect avg(salary) from emp1 where emp1.dname=outter1.dname);
+
+
+
+Aneletic function:
+
+
+limit():
+select salary from(select salary from emp1 order by salary desc) emp1 limit 2,1;
+
+over():
+select name ,salary,row_number() over (order by salary desc)from emp1;
+
+
+row_number():
+select name ,salary,row_number() over (order by salary desc)from emp1;
+
+rank():
+select name,salary,rank() over(order by salary desc) from emp1;
+
+dense_rank():
+
+
+
+answers:
+1.select min(salary) from(select *from(select*from emp1 order by salary asc)emp1 limit 4)emp1;s
+2.select name,des,salary from emp where salary in(select min(salary) from emp group by des having min(salary)<=30000);
+3.slect c1.name from customer c1, customer c2 where c1.id=c2.managerid;
+4.select name from emp where salary >(select avg(salary) from emp where des='IT");
+5.select  avg(salary) from(select avg(salary) from (emp1)where truncate(avg(salary),2)) group by des;

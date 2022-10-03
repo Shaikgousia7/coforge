@@ -1,0 +1,215 @@
+SPRING 5.3 ANNOTATIONS:::
+------------------------------------
+JSR annotations
+@Autowire
+@qulifier
+@Bean
+@Configuration
+@Scope
+
+
+STERO TYPE ANNOTATION::
+----------------------------------------
+1 @component  
+2 @Repository
+3 @Service
+4 @Controller
+
+1  @Autowire annotation::::
+  it is a method feild or constructor level annotation used to collaborate the beans
+
+Autowire is 4 types::
+1 byName-- in this id of one bean must be same as property of another bean
+2 byType-- in this one bean collaborates(wires) with another bean by their type be using setter injection
+3 constructor same as--by type  but constructors are used instead of setter methods3
+
+NOTE::
+ in byatype / constructor autowire if more than 1 instance of same bean exists container returns error
+
+to use annotation import contex name space in xml file an add <context:component-scan/> tag
+
+
+u must use ApplicationContext IOC
+
+
+EX::::
+
+class Department
+{
+  String name;
+  String city;  
+}
+class Emp
+{
+  String name;
+  String des;
+Department dept;
+}
+Here Emp depends on Dept
+
+using @Autowired achive DI
+ 
+o/p:::: Govind is engineer worink in IT Department at Goa
+@qualifer annotation::::::::::::::::::::
+it is also field level annotation, used to reslove the ambigity between two same bean if couple of instances of  same bean exits
+
+
+
+create a calss called student and create a class called course
+
+
+
+class Course
+{
+  String name;
+  String institute;
+}
+class Student
+{
+  String sname;
+  String qulification;
+course course;
+}
+bhaskar done BE studing java training course at APTECH
+use constructor
+=========================================================================================================================================
+
+
+
+LAYERED ARCHITUCTURE::::::::::::::::::::::::::
+THERE are 5 layers in application development
+
+
+
+1 model layer::
+     it contains getter and setter methods also called pojo class
+does not contain any business logic
+it uses JPA annotations like @table @id @coloumn @GeneratedValue @Entity
+
+
+
+2 Data access layer::
+  it contains data access logic
+it uses @Repository annotation
+
+
+
+3 Service layer::
+it contains bussiness logic it usese @service annotation
+
+
+
+4 Presentation layer::
+it contains Presentation logic it uses @Controller annotation
+
+
+
+5 Exception layer::
+  contains the Exception handling code
+
+
+
+
+
+Spring core provide 4 annotation to work with layered architecture
+
+these 4 annotations are called serotype annotations
+
+
+
+1 @Repository annotation
+it ois a class level annotation represents the data access logic
+2 @Service annotation::
+it ois a class level annotation represents the business logic
+3 @Controller annotation::
+it ois a class level annotation represents the presentation logic
+4 @Component annotation::
+it ois a class level annotation
+all above 3 annotations as component to represent data access/business/presentation logic
+all above annotations are prese nt in org.springframework.sterotype.*pkg
+
+
+
+
+
+write a class called product with id name price and insert 5 objects in arraylist and sort on price basic and display
+if size of arraylist is < 5 throw Custom Exception
+InvalidSizeException and handle
+use layered architecture.
+
+
+
+if we develop spring application without xml
+it is called ZERO CONFIGURATION APPLICATION
+also called programmatic approach
+
+
+
+
+it is achived by 3 annotations
+
+
+
+@Bean annotation:::::
+
+
+
+it is used to define the bean
+it is used instead of <bean> tag in xml
+it is method level annotation
+
+
+
+
+@Conifiguration::
+it is class level annotation
+used to represent the configuration file
+in this we can configure 0 or more @Bean annotated method
+if xml is not used we need to use this file annotatted
+with above annotaion
+and it is load in AnnotationConfigureApplicationContext
+class
+
+
+
+@ComponentScan:::::
+it is called level annotation used to scan the pkgs annotated with stereotype annotation
+used intead of <context:component-scan> tag
+
+
+
+
+
+
+INTEGRATION WITH SPRING AND HIBERNATE::::
+
+
+
+we can achive it using ORM module
+we need confifure SessionFactory using Spring's ORM's
+org.spring.framework.orm.hibernate5.LocalSessionFactoryBean class
+it has following properties
+
+
+
+
+1  dataSource---> used to obtain data base connection
+2  annotatedClasses--> used to obtain mapping info
+3  hibernateproperties--> used to obtain hibernate propeties
+
+
+
+
+class book
+{
+  int id;//primary key
+  String name;
+Date dop;
+int price;
+}
+
+
+
+map to the SpringBook table using spring ORM THROUGH CRUD 
+
+
