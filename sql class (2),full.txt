@@ -189,7 +189,7 @@ rank():
 select name,salary,rank() over(order by salary desc) from emp1;
 
 dense_rank():
-
+-------------------------------------------------
 
 
 answers:
